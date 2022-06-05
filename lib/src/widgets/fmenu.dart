@@ -6,6 +6,7 @@ int _hoveredItem = 0;
 class FMenu extends StatefulWidget {
   final List<FMenuItem> items;
   final BorderRadius? itemsBorderRadius;
+  final BorderRadius? borderRadius;
   final BorderRadius? badgeBorderRadius;
   final EdgeInsets? itemsPadding;
   final Widget? header;
@@ -17,6 +18,7 @@ class FMenu extends StatefulWidget {
     Key? key,
     required this.items,
     this.itemsBorderRadius,
+    this.borderRadius,
     this.badgeBorderRadius,
     this.itemsPadding,
     this.header,
@@ -33,8 +35,10 @@ class _FMenuState extends State<FMenu> {
   @override
   Widget build(BuildContext context) {
     return Material(
+      color: widget.backgroundColor,
+      borderRadius: widget.borderRadius,
       child: Scaffold(
-        backgroundColor: widget.backgroundColor,
+        backgroundColor: Colors.transparent,
         body: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           mainAxisAlignment: MainAxisAlignment.start,
@@ -56,6 +60,13 @@ class _FMenuState extends State<FMenu> {
                         setState(() {
                           _selectedItem = item.key;
                         });
+
+                        if (fLayoutScaffoldKey.currentState!.isDrawerOpen) {
+                          fLayoutScaffoldKey.currentState?.closeDrawer();
+                        }
+                        if (fLayoutScaffoldKey.currentState!.isEndDrawerOpen) {
+                          fLayoutScaffoldKey.currentState?.closeEndDrawer();
+                        }
                       },
                       isSelected: _selectedItem == item.key,
                       onHover: (isHovered) {

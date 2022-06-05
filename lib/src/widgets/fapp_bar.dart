@@ -1,8 +1,10 @@
+// ignore_for_file: deprecated_member_use
 part of flayout;
 
 class FAppBar {
   static AppBar copyWith({
     required AppBar appBar,
+    Key? key,
     double? toolbarHeight,
     Widget? leading,
     bool? automaticallyImplyLeading,
@@ -40,6 +42,7 @@ class FAppBar {
     bool? pinned,
   }) {
     return AppBar(
+      key: key ?? appBar.key,
       toolbarHeight: toolbarHeight ?? appBar.toolbarHeight,
       leading: leading ?? appBar.leading,
       automaticallyImplyLeading: automaticallyImplyLeading ?? appBar.automaticallyImplyLeading,
@@ -54,11 +57,9 @@ class FAppBar {
       shape: shape ?? appBar.shape,
       backgroundColor: backgroundColor ?? appBar.backgroundColor,
       foregroundColor: foregroundColor ?? appBar.foregroundColor,
-      // ignore: deprecated_member_use
       brightness: brightness ?? appBar.brightness,
       iconTheme: iconTheme ?? appBar.iconTheme,
       actionsIconTheme: actionsIconTheme ?? appBar.actionsIconTheme,
-      // ignore: deprecated_member_use
       textTheme: textTheme ?? appBar.textTheme,
       primary: primary ?? appBar.primary,
       centerTitle: centerTitle ?? appBar.centerTitle,
@@ -67,7 +68,6 @@ class FAppBar {
       toolbarOpacity: toolbarOpacity ?? appBar.toolbarOpacity,
       bottomOpacity: bottomOpacity ?? appBar.bottomOpacity,
       leadingWidth: leadingWidth ?? appBar.leadingWidth,
-      // ignore: deprecated_member_use
       backwardsCompatibility: backwardsCompatibility ?? appBar.backwardsCompatibility,
       toolbarTextStyle: toolbarTextStyle ?? appBar.toolbarTextStyle,
       titleTextStyle: titleTextStyle ?? appBar.titleTextStyle,
@@ -76,76 +76,87 @@ class FAppBar {
   }
 }
 
- //TODO: Add Sliver app bar
-    // required appBar.leading,
-    // required appBar.automaticallyImplyLeading,
-    // required appBar.title,
-    // required appBar.actions,
-    // required appBar.flexibleSpace,
-    // required appBar.bottom,
-    // required appBar.elevation,
-    // required appBar.scrolledUnderElevation,
-    // required appBar.shadowColor,
-    // required appBar.surfaceTintColor,
-    // required appBar.forceElevated,
-    // required appBar.backgroundColor,
-    // required appBar.foregroundColor,
-    // required appBar.brightness,
-    // required appBar.iconTheme,
-    // required appBar.actionsIconTheme,
-    // required appBar.textTheme,
-    // required appBar.primary,
-    // required appBar.centerTitle,
-    // required appBar.excludeHeaderSemantics,
-    // required appBar.titleSpacing,
-    // required appBar.expandedHeight,
-    // required appBar.collapsedHeight,
-    // required appBar.topPadding,
-    // required appBar.floating,
-    // required appBar.pinned,
-    // required appBar.vsync,
-    // required appBar.snapConfiguration,
-    // required appBar.stretchConfiguration,
-    // required appBar.showOnScreenConfiguration,
-    // required appBar.shape,
-    // required appBar.toolbarHeight,
-    // required appBar.leadingWidth,
-    // required appBar.backwardsCompatibility,
-    // required appBar.toolbarTextStyle,
-    // required appBar.titleTextStyle,
-    // required appBar.systemOverlayStyle,
-
-// final Widget? leading;
-//   final bool automaticallyImplyLeading;
-//   final Widget? title;
-//   final List<Widget>? actions;
-//   final Widget? flexibleSpace;
-//   final PreferredSizeWidget? bottom;
-//   final double? elevation;
-//   final double? scrolledUnderElevation;
-//   final Color? shadowColor;
-//   final Color? surfaceTintColor;
-//   final bool forceElevated;
-//   final Color? backgroundColor;
-//   final Color? foregroundColor;
-//   final Brightness? brightness;
-//   final IconThemeData? iconTheme;
-//   final IconThemeData? actionsIconTheme;
-//   final TextTheme? textTheme;
-//   final bool primary;
-//   final bool? centerTitle;
-//   final bool excludeHeaderSemantics;
-//   final double? titleSpacing;
-//   final double? expandedHeight;
-//   final double collapsedHeight;
-//   final double topPadding;
-//   final bool floating;
-//   final bool pinned;
-//   final ShapeBorder? shape;
-//   final double? toolbarHeight;
-//   final double? leadingWidth;
-//   final bool? backwardsCompatibility;
-//   final TextStyle? toolbarTextStyle;
-//   final TextStyle? titleTextStyle;
-//   final SystemUiOverlayStyle? systemOverlayStyle;
-//   final double _bottomHeight;
+class FSliverAppBar {
+  static SliverAppBar copyWith({
+    required SliverAppBar sliverAppBar,
+    Key? key,
+    AsyncCallback? onStretchTrigger,
+    bool? snap,
+    bool? stretch,
+    double? stretchTriggerOffset,
+    Widget? leading,
+    bool? automaticallyImplyLeading,
+    Widget? title,
+    List<Widget>? actions,
+    Widget? flexibleSpace,
+    PreferredSizeWidget? bottom,
+    double? elevation,
+    double? scrolledUnderElevation,
+    Color? shadowColor,
+    Color? surfaceTintColor,
+    bool? forceElevated,
+    Color? backgroundColor,
+    Color? foregroundColor,
+    Brightness? brightness,
+    IconThemeData? iconTheme,
+    IconThemeData? actionsIconTheme,
+    TextTheme? textTheme,
+    bool? primary,
+    bool? centerTitle,
+    bool? excludeHeaderSemantics,
+    double? titleSpacing,
+    double? expandedHeight,
+    double? collapsedHeight,
+    double? topPadding,
+    bool? floating,
+    bool? pinned,
+    ShapeBorder? shape,
+    double? toolbarHeight,
+    double? leadingWidth,
+    bool? backwardsCompatibility,
+    TextStyle? toolbarTextStyle,
+    TextStyle? titleTextStyle,
+    SystemUiOverlayStyle? systemOverlayStyle,
+  }) {
+    return SliverAppBar(
+      key: key ?? sliverAppBar.key,
+      onStretchTrigger: onStretchTrigger ?? sliverAppBar.onStretchTrigger,
+      snap: snap ?? sliverAppBar.snap,
+      stretch: stretch ?? sliverAppBar.stretch,
+      stretchTriggerOffset: stretchTriggerOffset ?? sliverAppBar.stretchTriggerOffset,
+      leading: leading ?? sliverAppBar.leading,
+      automaticallyImplyLeading:
+          automaticallyImplyLeading ?? sliverAppBar.automaticallyImplyLeading,
+      title: title ?? sliverAppBar.title,
+      actions: actions ?? sliverAppBar.actions,
+      flexibleSpace: flexibleSpace ?? sliverAppBar.flexibleSpace,
+      bottom: bottom ?? sliverAppBar.bottom,
+      elevation: elevation ?? sliverAppBar.elevation,
+      scrolledUnderElevation: scrolledUnderElevation ?? sliverAppBar.scrolledUnderElevation,
+      shadowColor: shadowColor ?? sliverAppBar.shadowColor,
+      surfaceTintColor: surfaceTintColor ?? sliverAppBar.surfaceTintColor,
+      forceElevated: forceElevated ?? sliverAppBar.forceElevated,
+      backgroundColor: backgroundColor ?? sliverAppBar.backgroundColor,
+      foregroundColor: foregroundColor ?? sliverAppBar.foregroundColor,
+      brightness: brightness ?? sliverAppBar.brightness,
+      iconTheme: iconTheme ?? sliverAppBar.iconTheme,
+      actionsIconTheme: actionsIconTheme ?? sliverAppBar.actionsIconTheme,
+      textTheme: textTheme ?? sliverAppBar.textTheme,
+      primary: primary ?? sliverAppBar.primary,
+      centerTitle: centerTitle ?? sliverAppBar.centerTitle,
+      excludeHeaderSemantics: excludeHeaderSemantics ?? sliverAppBar.excludeHeaderSemantics,
+      titleSpacing: titleSpacing ?? sliverAppBar.titleSpacing,
+      expandedHeight: expandedHeight ?? sliverAppBar.expandedHeight,
+      collapsedHeight: collapsedHeight ?? sliverAppBar.collapsedHeight,
+      floating: floating ?? sliverAppBar.floating,
+      pinned: pinned ?? sliverAppBar.pinned,
+      shape: shape ?? sliverAppBar.shape,
+      toolbarHeight: toolbarHeight ?? sliverAppBar.toolbarHeight,
+      leadingWidth: leadingWidth ?? sliverAppBar.leadingWidth,
+      backwardsCompatibility: backwardsCompatibility ?? sliverAppBar.backwardsCompatibility,
+      toolbarTextStyle: toolbarTextStyle ?? sliverAppBar.toolbarTextStyle,
+      titleTextStyle: titleTextStyle ?? sliverAppBar.titleTextStyle,
+      systemOverlayStyle: systemOverlayStyle ?? sliverAppBar.systemOverlayStyle,
+    );
+  }
+}
