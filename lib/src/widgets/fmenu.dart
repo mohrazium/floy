@@ -1,5 +1,8 @@
 part of flayout;
 
+int _selectedItem = 0;
+int _hoveredItem = 0;
+
 class FMenu extends StatefulWidget {
   final List<FMenuItem> items;
   final BorderRadius? itemsBorderRadius;
@@ -25,9 +28,6 @@ class FMenu extends StatefulWidget {
   @override
   State<FMenu> createState() => _FMenuState();
 }
-
-int _selectedItem = 0;
-int _hoveredItem = 0;
 
 class _FMenuState extends State<FMenu> {
   @override
@@ -63,7 +63,7 @@ class _FMenuState extends State<FMenu> {
                           if (isHovered) {
                             _hoveredItem = item.key;
                           } else {
-                            _hoveredItem = 0;
+                            _hoveredItem = _selectedItem;
                           }
                         });
                       },
@@ -96,7 +96,7 @@ class FMenuItem {
     required this.name,
     this.description,
     this.icon,
-    this.iconSize,
+    this.iconSize = 24,
     this.activeIcon,
     required this.onTap,
     this.totalNotify,
@@ -129,46 +129,8 @@ class FMenuButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final button = InkWell(
-      onTap: onPressed,
-      onHover: (isHovered) => onHover(isHovered),
-      borderRadius: borderRadius,
-      child: Padding(
-        padding: padding ?? const EdgeInsets.all(15),
-        child: FResponsive.isLargeScreen(context)
-            ? Column(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  _buildNotify(
-                    context,
-                    Column(
-                      children: [
-                        _buildIcon(context),
-                        const SizedBox(width: 5),
-                        _buildLabel(context),
-                      ],
-                    ),
-                  ),
-                ],
-              )
-            : Row(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Row(
-                    children: [
-                      _buildIcon(context),
-                      const SizedBox(width: 5),
-                      _buildLabel(context),
-                    ],
-                  ),
-                  _buildNotify(context),
-                ],
-              ),
-      ),
-    );
     return Material(
+        animationDuration: const Duration(milliseconds: 500),
         color: _onColorChanged(context)?.withOpacity(0.1) ?? Colors.transparent,
         borderRadius: borderRadius,
         child: item.description != null
@@ -176,9 +138,66 @@ class FMenuButton extends StatelessWidget {
                 message: item.description,
                 waitDuration: const Duration(seconds: 5),
                 showDuration: const Duration(seconds: 2),
-                child: button,
+                child: _buildInkButton(context),
               )
-            : button);
+            : _buildInkButton(context));
+  }
+
+  Widget _buildInkButton(context) {
+    return InkWell(
+      onTap: onPressed,
+      onHover: (isHovered) => onHover(isHovered),
+      borderRadius: borderRadius,
+      child: Padding(
+        padding: padding ?? const EdgeInsets.all(15),
+        child: FResponsive.isLargeScreen(context)
+            ? Row(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  _buildIndicator(context, (item.iconSize ?? 24) * 2),
+                  Center(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        const SizedBox(height: 5),
+                        _buildNotify(
+                          context,
+                          Column(
+                            children: [
+                              _buildIcon(context),
+                              const SizedBox(width: 5),
+                              _buildLabel(context),
+                            ],
+                          ),
+                        ),
+                        const SizedBox(height: 5),
+                      ],
+                    ),
+                  ),
+                  const SizedBox(width: 5.0),
+                ],
+              )
+            : Row(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: [
+                  _buildIndicator(context, item.iconSize),
+                  const SizedBox(width: 5.0),
+                  Row(
+                    children: [
+                      _buildIcon(context),
+                      const SizedBox(width: 5),
+                      _buildLabel(context),
+                    ],
+                  ),
+                  const Spacer(),
+                  _buildNotify(context),
+                ],
+              ),
+      ),
+    );
   }
 
   Color? _onColorChanged(context) {
@@ -217,6 +236,7 @@ class FMenuButton extends StatelessWidget {
         return Badge(
             elevation: 0,
             toAnimate: false,
+            alignment: Alignment.topLeft,
             shape: BadgeShape.square,
             position: const BadgePosition(top: -10, end: -25),
             borderRadius: badgeBorderRadius ?? const BorderRadius.all(Radius.circular(10)),
@@ -230,6 +250,19 @@ class FMenuButton extends StatelessWidget {
       }
     }
 
-    return Container();
+    return Container(child: child);
+  }
+
+  Widget _buildIndicator(context, size) {
+    return AnimatedContainer(
+      width: isSelected ? 5 : 0,
+      height: isSelected ? size : 0,
+      decoration: BoxDecoration(
+        color: Theme.of(context).primaryColor,
+        borderRadius: borderRadius ?? const BorderRadius.all(Radius.circular(15)),
+      ),
+      duration: const Duration(milliseconds: 500),
+      curve: Curves.fastOutSlowIn,
+    );
   }
 }
