@@ -5,7 +5,7 @@ final GlobalKey<ScaffoldState> floyScaffoldKey = GlobalKey();
 class Floy extends StatelessWidget {
   final String? title;
   final AppBar? appBar;
-  final Widget materialAppHolder;
+  final Widget routerWidget;
   final Widget? rightPanel;
   final Widget? leftPanel;
   final bool extendBodyBehindAppBar;
@@ -20,7 +20,7 @@ class Floy extends StatelessWidget {
     Key? key,
     this.title,
     this.appBar,
-    required this.materialAppHolder,
+    required this.routerWidget,
     this.rightPanel,
     this.leftPanel,
     this.extendBodyBehindAppBar = false,
@@ -64,7 +64,7 @@ class Floy extends StatelessWidget {
                   : leftPanel != null || rightPanel != null
                       ? 5 ~/ flexes
                       : 1,
-              child: materialAppHolder),
+              child: routerWidget),
           if (rightPanel != null &&
               (FloyResponsive.isLargeScreen(context) ||
                   FloyResponsive.isXLargeScreen(context) ||
