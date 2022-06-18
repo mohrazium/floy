@@ -1,4 +1,4 @@
-part of flayout;
+part of floy;
 
 const int _extraSmallSize = 414;
 const int _smallSize = 640;
@@ -7,22 +7,22 @@ const int _mediumSize = 1024;
 const int _largeSize = 1366;
 const int _xLargeSize = 1920;
 
-class FResponsive extends StatelessWidget {
+class FloyResponsive extends StatelessWidget {
   final Widget? extraSmallPage;
   final Widget? smallPage;
   final Widget? mediumSmallPage;
-  final Widget mediumPage;
-  final Widget? largePage;
+  final Widget? mediumPage;
+  final Widget largePage;
   final Widget? xLargePage;
   final Widget? xxLargePage;
 
-  const FResponsive({
+  const FloyResponsive({
     Key? key,
     this.extraSmallPage,
     this.smallPage,
     this.mediumSmallPage,
-    required this.mediumPage,
-    this.largePage,
+    this.mediumPage,
+    required this.largePage,
     this.xLargePage,
     this.xxLargePage,
   }) : super(key: key);
@@ -67,29 +67,29 @@ class FResponsive extends StatelessWidget {
     return LayoutBuilder(builder: (context, constraints) {
       if (constraints.maxWidth < _extraSmallSize) {
         //! Extra Small Page
-        return extraSmallPage ?? mediumPage;
+        return extraSmallPage ?? largePage;
       } else if (constraints.maxWidth >= _extraSmallSize && constraints.maxWidth < _smallSize) {
         //! Small Page
-        return smallPage ?? mediumPage;
+        return smallPage ?? largePage;
       } else if (constraints.maxWidth >= _smallSize && constraints.maxWidth < _mediumSmallSize) {
         //! Medium Small Page
-        return mediumSmallPage ?? mediumPage;
+        return mediumSmallPage ?? largePage;
       } else if (constraints.maxWidth >= _mediumSmallSize && constraints.maxWidth < _mediumSize) {
         //! Medium Page
-        return mediumPage;
+        return mediumPage ?? largePage;
       } else if (constraints.maxWidth >= _mediumSize && constraints.maxWidth < _largeSize) {
         //! Large Page
-        return largePage ?? mediumPage;
+        return largePage;
       } else if (constraints.maxWidth >= _largeSize && constraints.maxWidth <= _xLargeSize) {
         //! Extra Large Page
-        return xLargePage ?? mediumPage;
+        return xLargePage ?? largePage;
       } else if (constraints.maxWidth > _xLargeSize) {
         //! 2Extra Large Page
-        return xxLargePage ?? mediumPage;
+        return xxLargePage ?? largePage;
       } else {
         //! Default
 
-        return mediumPage;
+        return largePage;
       }
     });
   }

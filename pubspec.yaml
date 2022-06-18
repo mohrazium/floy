@@ -1,7 +1,6 @@
-name: flayout
-description: Flayout provides routing in part of screen you like to change, is was a responsive layout to any size of screens
+name: floy
+description: Floy provides a responsive layout to any size of screens.it's kind of dashboard layout.
 version: 0.0.1
-homepage:
 
 environment:
   sdk: ">=2.17.1 <3.0.0"
