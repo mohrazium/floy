@@ -1,8 +1,10 @@
 part of floy;
 
-final GlobalKey<ScaffoldState> floyScaffoldKey = GlobalKey();
-
 class Floy extends StatelessWidget {
+  static GlobalKey<ScaffoldState> scaffoldKey = GlobalKey();
+  static GlobalKey<NavigatorState> navigatorKey = GlobalKey();
+  static GlobalKey<NavigatorState> outletNavigatorKey = GlobalKey();
+
   final String? title;
   final AppBar? appBar;
   final Widget routerWidget;
@@ -35,7 +37,7 @@ class Floy extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      key: floyScaffoldKey,
+      key: scaffoldKey,
       extendBodyBehindAppBar: extendBodyBehindAppBar,
       appBar: appBar.isNotNull()
           ? FloyAppBar.copyWith(
@@ -85,12 +87,12 @@ class Floy extends StatelessWidget {
       actions.add(IconButton(
         icon: endDrawerIcon ?? const Icon(Icons.more_vert),
         onPressed: () {
-          floyScaffoldKey.currentState?.openEndDrawer();
+          scaffoldKey.currentState?.openEndDrawer();
         },
         tooltip: endDrawerToolTip ?? MaterialLocalizations.of(context).openAppDrawerTooltip,
       ));
     } else {
-      floyScaffoldKey.currentState?.closeEndDrawer();
+      scaffoldKey.currentState?.closeEndDrawer();
       if (appBar?.actions != null) actions.addAll(appBar!.actions!);
     }
     return actions;
@@ -107,12 +109,12 @@ class Floy extends StatelessWidget {
       return IconButton(
         icon: drawerIcon ?? const Icon(Icons.menu),
         onPressed: () {
-          floyScaffoldKey.currentState?.openDrawer();
+          scaffoldKey.currentState?.openDrawer();
         },
         tooltip: drawerToolTip ?? MaterialLocalizations.of(context).openAppDrawerTooltip,
       );
     } else {
-      floyScaffoldKey.currentState?.closeDrawer();
+      scaffoldKey.currentState?.closeDrawer();
       return null;
     }
   }
