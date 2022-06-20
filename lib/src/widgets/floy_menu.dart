@@ -64,11 +64,11 @@ class _FloyMenuState extends State<FloyMenu> {
                           _selectedItem = item.key;
                         });
 
-                        if (scaffoldKey.currentState!.isDrawerOpen) {
-                          scaffoldKey.currentState?.closeDrawer();
+                        if (Floy.scaffoldKey.currentState!.isDrawerOpen) {
+                          Floy.scaffoldKey.currentState?.closeDrawer();
                         }
-                        if (scaffoldKey.currentState!.isEndDrawerOpen) {
-                          scaffoldKey.currentState?.closeEndDrawer();
+                        if (Floy.scaffoldKey.currentState!.isEndDrawerOpen) {
+                          Floy.scaffoldKey.currentState?.closeEndDrawer();
                         }
                       },
                       isSelected: _selectedItem == item.key,
