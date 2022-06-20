@@ -37,21 +37,23 @@ class Floy extends StatelessWidget {
     return Scaffold(
       key: floyScaffoldKey,
       extendBodyBehindAppBar: extendBodyBehindAppBar,
-      appBar: FloyAppBar.copyWith(
-          appBar: appBar!, leading: _handleDrawer(context), actions: _getActions(context)),
-      drawer: leftPanel != null
+      appBar: appBar.isNotNull()
+          ? FloyAppBar.copyWith(
+              appBar: appBar!, leading: _handleDrawer(context), actions: _getActions(context))
+          : null,
+      drawer: leftPanel.isNotNull()
           ? isPanelsInDrawer(context)
               ? Drawer(child: leftPanel)
               : null
           : null,
-      endDrawer: rightPanel != null
-          ? isPanelsInDrawer(context)
+      endDrawer: rightPanel.isNotNull()
+          ? isPanelsInDrawer(context) && rightPanel.isNotNull()
               ? Drawer(child: rightPanel)
               : null
           : null,
       body: Row(
         children: [
-          if (leftPanel != null &&
+          if (leftPanel.isNotNull() &&
               (FloyResponsive.isLargeScreen(context) ||
                   FloyResponsive.isXLargeScreen(context) ||
                   FloyResponsive.isXXLargeScreen(context)))
@@ -59,13 +61,13 @@ class Floy extends StatelessWidget {
           else
             Container(),
           Expanded(
-              flex: leftPanel != null && rightPanel != null
+              flex: leftPanel.isNotNull() && rightPanel.isNotNull()
                   ? 4 ~/ flexes
-                  : leftPanel != null || rightPanel != null
+                  : leftPanel.isNotNull() || rightPanel.isNotNull()
                       ? 5 ~/ flexes
                       : 1,
               child: routerWidget),
-          if (rightPanel != null &&
+          if (rightPanel.isNotNull() &&
               (FloyResponsive.isLargeScreen(context) ||
                   FloyResponsive.isXLargeScreen(context) ||
                   FloyResponsive.isXXLargeScreen(context)))
@@ -78,8 +80,8 @@ class Floy extends StatelessWidget {
 
   List<Widget>? _getActions(context) {
     List<Widget>? actions = List.empty(growable: true);
-    if (appBar?.actions != null) actions.addAll(appBar!.actions!);
-    if (isPanelsInDrawer(context) && rightPanel != null) {
+    if (appBar.isNotNull() && appBar?.actions != null) actions.addAll(appBar!.actions!);
+    if (isPanelsInDrawer(context) && rightPanel.isNotNull()) {
       actions.add(IconButton(
         icon: endDrawerIcon ?? const Icon(Icons.more_vert),
         onPressed: () {
@@ -101,7 +103,7 @@ class Floy extends StatelessWidget {
       FloyResponsive.isXSmallScreen(context);
 
   Widget? _handleDrawer(context) {
-    if (isPanelsInDrawer(context)) {
+    if (isPanelsInDrawer(context) && leftPanel.isNotNull()) {
       return IconButton(
         icon: drawerIcon ?? const Icon(Icons.menu),
         onPressed: () {
