@@ -15,6 +15,7 @@ class FloyResponsive extends StatelessWidget {
   final Widget largePage;
   final Widget? xLargePage;
   final Widget? xxLargePage;
+  final Widget? unsupportedSizePage;
 
   const FloyResponsive({
     Key? key,
@@ -25,6 +26,7 @@ class FloyResponsive extends StatelessWidget {
     required this.largePage,
     this.xLargePage,
     this.xxLargePage,
+    this.unsupportedSizePage,
   }) : super(key: key);
 
   static bool isXSmallScreen(BuildContext context) {
@@ -67,29 +69,34 @@ class FloyResponsive extends StatelessWidget {
     return LayoutBuilder(builder: (context, constraints) {
       if (constraints.maxWidth < _extraSmallSize) {
         //! Extra Small Page
-        return extraSmallPage ?? largePage;
-      } else if (constraints.maxWidth >= _extraSmallSize && constraints.maxWidth < _smallSize) {
+        return extraSmallPage ?? unsupportedSizePage ?? largePage;
+      } else if (constraints.maxWidth >= _extraSmallSize &&
+          constraints.maxWidth < _smallSize) {
         //! Small Page
-        return smallPage ?? largePage;
-      } else if (constraints.maxWidth >= _smallSize && constraints.maxWidth < _mediumSmallSize) {
+        return smallPage ?? unsupportedSizePage ?? largePage;
+      } else if (constraints.maxWidth >= _smallSize &&
+          constraints.maxWidth < _mediumSmallSize) {
         //! Medium Small Page
-        return mediumSmallPage ?? largePage;
-      } else if (constraints.maxWidth >= _mediumSmallSize && constraints.maxWidth < _mediumSize) {
+        return mediumSmallPage ?? unsupportedSizePage ?? largePage;
+      } else if (constraints.maxWidth >= _mediumSmallSize &&
+          constraints.maxWidth < _mediumSize) {
         //! Medium Page
-        return mediumPage ?? largePage;
-      } else if (constraints.maxWidth >= _mediumSize && constraints.maxWidth < _largeSize) {
+        return mediumPage ?? unsupportedSizePage ?? largePage;
+      } else if (constraints.maxWidth >= _mediumSize &&
+          constraints.maxWidth < _largeSize) {
         //! Large Page
         return largePage;
-      } else if (constraints.maxWidth >= _largeSize && constraints.maxWidth <= _xLargeSize) {
+      } else if (constraints.maxWidth >= _largeSize &&
+          constraints.maxWidth <= _xLargeSize) {
         //! Extra Large Page
-        return xLargePage ?? largePage;
+        return xLargePage ?? unsupportedSizePage ?? largePage;
       } else if (constraints.maxWidth > _xLargeSize) {
         //! 2Extra Large Page
-        return xxLargePage ?? largePage;
+        return xxLargePage ?? unsupportedSizePage ?? largePage;
       } else {
         //! Default
 
-        return largePage;
+        return unsupportedSizePage ?? largePage;
       }
     });
   }

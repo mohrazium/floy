@@ -1,6 +1,7 @@
 name: floy
 description: Floy provides a responsive layout to any size of screens.it's kind of dashboard layout.
 version: 0.0.1
+homepage: https://mohrazium.github.io/docs/floy/
 
 environment:
   sdk: ">=2.17.1 <3.0.0"

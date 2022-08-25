@@ -6,7 +6,7 @@ class Floy extends StatelessWidget {
   static GlobalKey<NavigatorState> outletNavigatorKey = GlobalKey();
 
   final String? title;
-  final AppBar? appBar;
+  final Object? appBar;
   final Widget routerWidget;
   final Widget? rightPanel;
   final Widget? leftPanel;
@@ -39,10 +39,7 @@ class Floy extends StatelessWidget {
     return Scaffold(
       key: scaffoldKey,
       extendBodyBehindAppBar: extendBodyBehindAppBar,
-      appBar: appBar.isNotNull()
-          ? FloyAppBar.copyWith(
-              appBar: appBar!, leading: _handleDrawer(context), actions: _getActions(context))
-          : null,
+      appBar: getAppBar(context),
       drawer: leftPanel.isNotNull()
           ? isPanelsInDrawer(context)
               ? Drawer(child: leftPanel)
@@ -80,9 +77,27 @@ class Floy extends StatelessWidget {
     );
   }
 
-  List<Widget>? _getActions(context) {
+  PreferredSizeWidget? getAppBar(context) {
+    if (appBar != null && appBar is AppBar) {
+      final castedAppBar = appBar! as AppBar;
+      return FloyAppBar.copyWith(
+          appBar: castedAppBar,
+          leading: _handleDrawer(context),
+          actions: _getActions(context, castedAppBar));
+    } else if (appBar != null && appBar is SliverAppBar) {
+      final sAppBar = appBar! as SliverAppBar;
+      return FloySliverAppBar.copyWith(
+        sliverAppBar: sAppBar,
+        leading: _handleDrawer(context),
+        actions: _getActions(context, sAppBar),
+      ) as PreferredSizeWidget?;
+    }
+    return null;
+  }
+
+  List<Widget>? _getActions(context, appBar) {
     List<Widget>? actions = List.empty(growable: true);
-    if (appBar.isNotNull() && appBar?.actions != null) actions.addAll(appBar!.actions!);
+    if (appBar != null && appBar?.actions != null) actions.addAll(appBar!.actions!);
     if (isPanelsInDrawer(context) && rightPanel.isNotNull()) {
       actions.add(IconButton(
         icon: endDrawerIcon ?? const Icon(Icons.more_vert),

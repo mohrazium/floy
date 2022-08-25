@@ -11,3 +11,4 @@ part 'widgets/floy_bottom_sheet.dart';
 part 'widgets/floy_app_bar.dart';
 part 'widgets/floy_menu.dart';
 part 'extensions/null_check.dart';
+part 'widgets/floy_toast.dart';
